@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
   filteredProducts: Product[] = [];
+  sortOrder: string = "";
   
   constructor(
     private productService: ProductService,
@@ -45,5 +46,17 @@ export class ProductListComponent implements OnInit {
     this.filteredProducts = this.products.filter(
       product => product.name.toLowerCase().includes(searchTerm)
     )
+
+    this.sortProdutcs(this.sortOrder);
+  }
+
+  sortProdutcs(sortValue: string){
+    this.sortOrder = sortValue;
+
+    if(this.sortOrder === "priceLowToHigh"){
+      this.filteredProducts.sort((a, b) => a.price - b.price);
+    } else if(this.sortOrder === "priceHighToLow") {
+      this.filteredProducts.sort((a, b) => b.price - a.price);
+    }
   }
 }
