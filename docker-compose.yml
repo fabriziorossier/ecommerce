@@ -1,0 +1,5 @@
+services:
+  ecommerce:
+    build: .
+    ports:
+     - "8002:80"
