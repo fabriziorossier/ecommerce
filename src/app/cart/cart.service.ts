@@ -23,12 +23,7 @@ export class CartService {
     // return this.http.get<Product[]>(this.apiUrl); // For use of external API
 
     // For local use
-    const cart = localStorage.getItem('cart');
-    if (cart) {
-        this.cartItems = JSON.parse(cart);
-    } else {
-        this.cartItems = [];
-    }
+    this.createCartOnLocalStorage();
     return of(this.cartItems);
   }
 
@@ -36,6 +31,7 @@ export class CartService {
     // return this.http.post<Product>(this.apiUrl, product); // For use of external API
 
     // For local use
+    this.createCartOnLocalStorage();
     this.cartItems.push(product);
     localStorage.setItem('cart', JSON.stringify(this.cartItems));
     return of(product);
@@ -46,7 +42,7 @@ export class CartService {
 
     // For local use
     this.cartItems = [];
-    localStorage.removeItem('cart');
+    this.deleteCartFromLocalStorage();
     window.location.reload();
     return of();
   }
@@ -55,8 +51,23 @@ export class CartService {
     // return this.http.post<void>(this.apiCheckoutUrl, products); // For use of external API
 
     // For local use
-    localStorage.removeItem('cart');
+    this.deleteCartFromLocalStorage();
     this.dialog.open(CheckoutModalComponent);
     return of();
+  }
+
+  // For local use
+  createCartOnLocalStorage(): void {
+    const cart = localStorage.getItem('cart');
+    if (cart) {
+        this.cartItems = JSON.parse(cart);
+    } else {
+        this.cartItems = [];
+    }
+  }
+
+  // For local use
+  deleteCartFromLocalStorage(): void {
+    localStorage.removeItem('cart');
   }
 }
