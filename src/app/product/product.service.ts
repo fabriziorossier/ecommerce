@@ -8,7 +8,8 @@ import { Product } from '../models/product';
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = environment.apiUrl + "/products";
+  private apiUrl = 'assets/json/products.json'; // For use of local JSON file
+  // private apiUrl = environment.apiUrl + "/products"; // For use of external API
 
   constructor(
     private http: HttpClient
