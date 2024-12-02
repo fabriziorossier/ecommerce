@@ -19,7 +19,7 @@ export class ProductListComponent implements OnInit {
     private cartService: CartService,
     private snackBar: MatSnackBar,
   ){}
-  
+
   ngOnInit(): void {
     this.productService.getProducts().subscribe(data => {
       this.products = data;
@@ -30,7 +30,7 @@ export class ProductListComponent implements OnInit {
   addToCart(product: Product): void {
     this.cartService.addToCard(product).subscribe({
       next: () => {
-        this.snackBar.open("Product added to cart", "", {
+        this.snackBar.open(`${product.name} has been added to the cart`, "", {
           duration: 2000,
           horizontalPosition: 'right',
           verticalPosition: 'top'
